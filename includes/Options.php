@@ -4,7 +4,11 @@ namespace LifeJacket\Client;
 class Options {
     protected $options = [];
 
-    protected $default_options = [];
+    protected $default_options = [
+        'api_slug' => 'api',
+        'downloads_slug' => 'downloads',
+    ];
+    
     protected $network_options = [];
     protected $blog_options = [];
 

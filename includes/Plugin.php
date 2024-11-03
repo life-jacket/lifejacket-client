@@ -38,9 +38,11 @@ class Plugin {
 
     public function get_hostnames() {
         $server = $this->options->get( 'server' );
+        $api_slug = $this->options->get( 'api_slug' );
+        $downloads_slug = $this->options->get( 'downloads_slug' );
         $hostnames = [
-            'api.wordpress.org' => $server . '/api',
-            'downloads.wordpress.org' => $server . '/downloads',    
+            'api.wordpress.org' => $server . '/' . $api_slug,
+            'downloads.wordpress.org' => $server . '/' . $downloads_slug,    
         ];
         $hostnames = apply_filters( 'lifejacket/hostnames', $hostnames );
         return $hostnames;

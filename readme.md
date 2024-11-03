@@ -29,4 +29,8 @@ define( 'LIFEJACKET_SERVER', 'https://example.tld/wp-json/lifejacket/v1' );
 define( 'LIFEJACKET_REQUIRE_AUTH', true );
 // Application password to access the LifeJacket Server
 define( 'LIFEJACKET_APPLICATION_PASSWORD', 'AAAA BBBB CCCC DDDD EEEE FFFF' );
+// slug for api.wordpress.org API equivalent (defaults to `api`)
+define( 'LIFEJACKET_API_SLUG', 'api' );
+// slug for downloads.wordpress.org API equivalent (defaults to `downloads`)
+define( 'LIFEJACKET_DOWNLOADS_SLUG', 'downloads' );
 ```
