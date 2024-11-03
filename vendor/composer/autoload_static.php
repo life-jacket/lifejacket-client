@@ -22,6 +22,7 @@ class ComposerStaticInit377e4ee7c989329427f4176387fd58de
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'LifeJacket\\Client\\Options' => __DIR__ . '/../..' . '/includes/Options.php',
         'LifeJacket\\Client\\Plugin' => __DIR__ . '/../..' . '/includes/Plugin.php',
     );
 
