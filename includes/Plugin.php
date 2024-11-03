@@ -28,8 +28,11 @@ class Plugin {
     }
 
     public function maybe_allow_port( $ports) {
-        // TO DO: make dynamic;
-        $ports[] = 10169; 
+        $server = $this->options->get( 'server' );
+        $port = parse_url( $server, PHP_URL_PORT );
+        if ( null !== $port && ! in_array( $port, $ports, true) ) {
+            $ports[] = $port; 
+        }
         return $ports;
     }
 
