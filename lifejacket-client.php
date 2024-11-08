@@ -1,5 +1,11 @@
 <?php
 /**
+ * LifeJacket Client
+ *
+ * @package LifeJacket\Client
+ * @author  LifeJacket
+ *
+ *
  * Plugin Name: LifeJacket Client
  * Version: 0.1.0
  * Plugin URI: https://github.com/life-jacket/lifejacket-client
@@ -10,10 +16,16 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 add_action( 'plugins_loaded', 'lifejacket_client' );
 
-function lifejacket_client() {
-    return LifeJacket\Client\Plugin::get_instance();
+/**
+ * Plugin initalization
+ *
+ * @return LifeJacket\Client\Plugin
+ */
+function lifejacket_client(): LifeJacket\Client\Plugin {
+	return LifeJacket\Client\Plugin::get_instance();
 }
