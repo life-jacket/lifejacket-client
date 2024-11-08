@@ -81,7 +81,7 @@ class Plugin {
 				break;
 			case 'anonymized':
 				$user_agent    = explode( '; ', $user_agent );
-				$user_agent[1] = md5( $user_agent[1] ?? '' );
+				$user_agent[1] = md5( trailingslashit( $user_agent[1] ) ?? '' );
 				$user_agent    = implode( '; ', $user_agent );
 				break;
 			case 'disabled':
