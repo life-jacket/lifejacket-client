@@ -65,9 +65,29 @@ class Plugin {
                 $parsed_args['headers']['X-WP-Application-Password'] = $this->options->get( 'application_password' );    
             }
             $url = preg_replace( '|^https?://' . $domain . '|ims', $endpoint, $url );
+			$parsed_args['user-agent'] = $this->process_user_agent( $parsed_args['user-agent'] ?? '' );
             $response = wp_remote_request( $url, $parsed_args );
         }
         
         return $response;
     }
+
+	protected function process_user_agent( $user_agent ) {
+		switch ( $this->options->get( 'telemetry' ) ) {
+			case 'enabled':
+				break;
+			case 'anonymized':
+				$user_agent = explode( '; ', $user_agent );
+				$user_agent[1] = md5( $user_agent[1] ?? '' );
+				$user_agent = implode( '; ', $user_agent );
+				break;
+			case 'disabled':
+			default:
+				$user_agent = explode( '; ', $user_agent );
+				$user_agent[1] = 'n/a';
+				$user_agent = implode( '; ', $user_agent );
+				break;
+		}
+		return $user_agent;
+	}
 }
