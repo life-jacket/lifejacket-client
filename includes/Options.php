@@ -7,6 +7,7 @@ class Options {
     protected $default_options = [
         'api_slug' => 'api',
         'downloads_slug' => 'downloads',
+		'telemetry' => 'disabled',
     ];
     
     protected $network_options = [];
