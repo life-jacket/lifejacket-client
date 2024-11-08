@@ -7,7 +7,7 @@
  *
  *
  * Plugin Name: LifeJacket Client
- * Version: 0.1.0
+ * Version: 0.2.0
  * Plugin URI: https://github.com/life-jacket/lifejacket-client
  * Description: Enables you to use a custom update server for your WordPress site. Part of LifeJacket project
  * Author: LifeJacket

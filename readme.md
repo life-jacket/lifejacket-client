@@ -34,3 +34,14 @@ define( 'LIFEJACKET_API_SLUG', 'api' );
 // slug for downloads.wordpress.org API equivalent (defaults to `downloads`)
 define( 'LIFEJACKET_DOWNLOADS_SLUG', 'downloads' );
 ```
+
+## Changelog
+
+### v0.2.0
+
+- cleanup according to coding standards
+- configurable telemetry - disable sending hostnames with .org api calls by default
+
+### v0.1.0
+
+Initial release
