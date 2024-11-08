@@ -2,57 +2,56 @@
 namespace LifeJacket\Client;
 
 class Options {
-    protected $options = [];
+	protected $options = array();
 
-    protected $default_options = [
-        'api_slug' => 'api',
-        'downloads_slug' => 'downloads',
-		'telemetry' => 'disabled',
-    ];
-    
-    protected $network_options = [];
-    protected $blog_options = [];
+	protected $default_options = array(
+		'api_slug'       => 'api',
+		'downloads_slug' => 'downloads',
+		'telemetry'      => 'disabled',
+	);
 
-    public function __construct() {
-        $this->network_options = get_site_option( 'lifejacket_client', [] );
-        $this->blog_options = get_option( 'lifejacket_client', [] );
-    }
+	protected $network_options = array();
+	protected $blog_options    = array();
 
-    public function get( $option ) {
-        $value = '';
+	public function __construct() {
+		$this->network_options = get_site_option( 'lifejacket_client', array() );
+		$this->blog_options    = get_option( 'lifejacket_client', array() );
+	}
 
-        if ( isset( $this->options[ $option ] ) ) {
-            $value = $this->options[ $option ];
-        }
+	public function get( $option ) {
+		$value = '';
 
-        if ( ! $value ) {
-            $value = $this->blog_options[ $option ] ?? $this->network_options[ $option ] ?? '';
-        };
+		if ( isset( $this->options[ $option ] ) ) {
+			$value = $this->options[ $option ];
+		}
 
-        $constant_name = strtoupper( 'LIFEJACKET_' . $option );
-        if ( ! $value && defined( $constant_name ) ) {
-            $value = constant( $constant_name );
-        }
+		if ( ! $value ) {
+			$value = $this->blog_options[ $option ] ?? $this->network_options[ $option ] ?? '';
+		}
 
-        if ( ! $value && isset( $this->default_options[ $option ] ) ) {
-            $value = $this->default_options[ $option ];
-        }
+		$constant_name = strtoupper( 'LIFEJACKET_' . $option );
+		if ( ! $value && defined( $constant_name ) ) {
+			$value = constant( $constant_name );
+		}
 
-        $value = $this->set( $option, $value );
+		if ( ! $value && isset( $this->default_options[ $option ] ) ) {
+			$value = $this->default_options[ $option ];
+		}
 
-        $value = apply_filters( "lifejacket/option/get", $value, $option );
-        $value = apply_filters( "lifejacket/option/get/{$option}", $value );
+		$value = $this->set( $option, $value );
 
-        return $value;
-    }
+		$value = apply_filters( 'lifejacket/option/get', $value, $option );
+		$value = apply_filters( "lifejacket/option/get/{$option}", $value );
 
-    protected function set( $option, $value ) {
-        $value = apply_filters( "lifejacket/option/set", $value, $option );
-        $value = apply_filters( "lifejacket/option/set/{$option}", $value );
- 
-        $this->options[ $option ] = $value;
- 
-        return $this->options[ $option ];
-    }
+		return $value;
+	}
 
+	protected function set( $option, $value ) {
+		$value = apply_filters( 'lifejacket/option/set', $value, $option );
+		$value = apply_filters( "lifejacket/option/set/{$option}", $value );
+
+		$this->options[ $option ] = $value;
+
+		return $this->options[ $option ];
+	}
 }
