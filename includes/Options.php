@@ -18,6 +18,10 @@ class Options {
 		$this->blog_options    = get_option( 'lifejacket_client', array() );
 	}
 
+	public function get_defaults() {
+		return $this->default_options;
+	}
+
 	public function get( $option ) {
 		$value = '';
 
