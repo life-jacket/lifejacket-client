@@ -27,7 +27,7 @@ class Settings {
 			array(
 				'methods'             => 'GET',
 				'callback'            => [ $this, 'get_options' ],
-				'permission_callback' => '__return_true',
+				'permission_callback' => [ $this, 'get_permissions' ],
 			)
 		);
 		register_rest_route(
@@ -36,12 +36,16 @@ class Settings {
 			array(
 				'methods'             => 'POST',
 				'callback'            => [ $this, 'set_options' ],
-				'permission_callback' => '__return_true',
+				'permission_callback' => [ $this, 'get_permissions' ],
 			)
 		);
 	}
 
-	public function get_options( $request ) {
+	public function get_permissions() {
+		return current_user_can( 'manage_options' );
+	}
+
+	public function get_options() {
 		$options  = get_option(
 			'lifejacket_client',
 			Plugin::get_instance()->options->get_defaults()
@@ -69,13 +73,12 @@ class Settings {
 		wp_register_style(
 			'lifejacket-client-settings',
 			LIFEJACKET_CLIENT_PLUGIN_URL . '/build/index.css',
-			[],
+			[ 'wp-components' ],
 			$asset['version']
 		);
 		// todo - conditionally load
 		wp_enqueue_script( 'lifejacket-client-settings' );
 		wp_enqueue_style( 'lifejacket-client-settings' );
-		wp_enqueue_style( 'wp-components' );
 	}
 
 	public function render_settings() {
