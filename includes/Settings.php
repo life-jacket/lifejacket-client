@@ -46,11 +46,27 @@ class Settings {
 	}
 
 	public function get_options() {
-		$options  = get_option(
-			'lifejacket_client',
-			Plugin::get_instance()->options->get_defaults()
+		$option_names = [
+			'server',
+			'telemetry',
+			'require_auth',
+			'application_password',
+			'api_slug',
+			'downloads_slug',
+		];
+		$options      = [];
+		$sources      = [];
+		foreach ( $option_names as $name ) {
+			$option           = Plugin::get_instance()->options->get_with_source( $name );
+			$options[ $name ] = $option['value'];
+			$sources[ $name ] = $option['source'];
+		}
+		$response = new \WP_REST_Response(
+			[
+				'values'  => $options,
+				'sources' => $sources,
+			]
 		);
-		$response = new \WP_REST_Response( $options );
 		return $response;
 	}
 

@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 
 import { __ } from "@wordpress/i18n";
 
-import { OptionsProvider } from './Context';
+import { OptionsProvider, SourcesProvider } from './Context';
 
 const TABS = [
     {
@@ -37,24 +37,26 @@ const TABS = [
 const App = () => {
     return (
         <OptionsProvider>
-            <Page name="lifejacket-settings">
-                <Page.Header 
-                    title={__("LifeJacket Client", "lifejacket-client")} 
-                    icon="admin-settings" 
-                    actions={<Actions/>}>
-                    {__("Settings", "lifejacket-client")}
-                </Page.Header>
-                <Container contained={"100%"} hasMargin={false}>
-                    <StyledTabPanel
-                        className="lifejacket-client-tabs"
-                        tabs={TABS}
-                        initialTabName={"basic"}
-                        children={(Tab) => {
-                        return <Tab.Component />;
-                    }}
-                    />
-                </Container>
-            </Page>  
+            <SourcesProvider>
+                <Page name="lifejacket-settings">
+                    <Page.Header 
+                        title={__("LifeJacket Client", "lifejacket-client")} 
+                        icon="admin-settings" 
+                        actions={<Actions/>}>
+                        {__("Settings", "lifejacket-client")}
+                    </Page.Header>
+                    <Container contained={"100%"} hasMargin={false}>
+                        <StyledTabPanel
+                            className="lifejacket-client-tabs"
+                            tabs={TABS}
+                            initialTabName={"basic"}
+                            children={(Tab) => {
+                            return <Tab.Component />;
+                        }}
+                        />
+                    </Container>
+                </Page>  
+            </SourcesProvider>
         </OptionsProvider>
     );
   

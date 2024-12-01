@@ -1,15 +1,16 @@
 import { createContext, useEffect, useReducer } from 'react'
 import apiFetch from '@wordpress/api-fetch';
 
-export const context = createContext();
+export const valuesContext = createContext();
+export const sourcesContext = createContext();
 
 export const OptionsProvider = ({children}) =>{
-    const reducer = (state, pair) => ({ ...state, ...pair })
-    const [data, updateData] = useReducer(reducer, {})
+    const dataReducer = (state, pair) => ({ ...state, ...pair })
+    const [data, updateData] = useReducer(dataReducer, {})
 
     useEffect(() =>{
         apiFetch( { path: '/lifejacket-client/v1/settings' } ).then( ( data ) => {
-            updateData(data);
+            updateData(data.values);
         } );
     },[]);
 
@@ -21,11 +22,30 @@ export const OptionsProvider = ({children}) =>{
           });          
     }
    
-   const { Provider } = context;
+   const { Provider } = valuesContext;
    
    return(
-       <Provider value={{data,updateData,storeData}}>
-           {children}
-       </Provider>
+        <Provider value={{data,updateData,storeData}}>
+            {children}
+        </Provider>
+   )
+}
+
+export const SourcesProvider = ({children}) =>{
+    const sourcesReducer = (state, pair) => ({ ...state, ...pair })
+    const [sources, updateSources] = useReducer(sourcesReducer, {})
+
+    useEffect(() =>{
+        apiFetch( { path: '/lifejacket-client/v1/settings' } ).then( ( data ) => {
+            updateSources(data.sources);
+        } );
+    },[]);
+
+   const { Provider } = sourcesContext;
+   
+   return(
+        <Provider value={{sources,updateSources}}>
+            {children}
+        </Provider>
    )
 }
