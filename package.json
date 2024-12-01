@@ -1,0 +1,23 @@
+{
+  "name": "lifejacket-client",
+  "version": "0.2.0",
+  "description": "This is the **Client** part of the LifeJacket project, which enables you to use a custom update server for your WordPress site.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "author": "",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "@goodwp/goodenberg": "^0.1.2",
+    "@wordpress/components": "^27.2.0",
+    "@wordpress/dom-ready": "^3.54.0",
+    "@wordpress/element": "^5.31.0",
+    "@wordpress/i18n": "^4.54.0"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^9.5.0",
+    "@wordpress/scripts": "^27.4.0"
+  }
+}

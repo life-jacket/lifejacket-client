@@ -21,13 +21,16 @@ class Plugin {
 
 	private function __construct() {}
 
-	protected $options;
+	public $options;
+	protected $settings;
 
 	public function init() {
 		add_filter( 'http_allowed_safe_ports', [ $this, 'maybe_allow_port' ] );
 		add_filter( 'pre_http_request', [ $this, 'maybe_proxy_dotorg' ], 1, 3 );
 
-		$this->options = new Options();
+		$this->options  = new Options();
+		$this->settings = new Settings();
+		$this->settings->init();
 	}
 
 	public function maybe_allow_port( $ports ) {
