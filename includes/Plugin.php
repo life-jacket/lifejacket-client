@@ -26,6 +26,7 @@ class Plugin {
 
 	public function init() {
 		add_filter( 'http_allowed_safe_ports', [ $this, 'maybe_allow_port' ] );
+		add_filter( 'http_request_host_is_external', [ $this, 'maybe_allow_external_host' ], 10, 3 );
 		add_filter( 'pre_http_request', [ $this, 'maybe_proxy_dotorg' ], 1, 3 );
 
 		$this->options  = new Options();
@@ -40,6 +41,12 @@ class Plugin {
 			$ports[] = $port;
 		}
 		return $ports;
+	}
+
+	public function maybe_allow_external_host( $allow, $host, $url ) {
+		$server = $this->options->get( 'server' );
+		$server_host   = wp_parse_url( $server, PHP_URL_HOST );
+		return $server_host === $host;
 	}
 
 	public function get_hostnames() {
